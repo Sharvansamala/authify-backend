@@ -2,7 +2,6 @@ package com.sharvan.authify.exception;
 
 import jakarta.validation.ConstraintViolationException;
 import org.apache.coyote.BadRequestException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -42,5 +41,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> badRequestException(BadRequestException exception){
         ApiError error = new ApiError(exception.getMessage(), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiError> runtimeException(RuntimeException exception){
+        ApiError error = new ApiError(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

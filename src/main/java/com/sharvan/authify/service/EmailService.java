@@ -31,4 +31,28 @@ public class EmailService {
         mailMessage.setText("Your OTP for reset: " + otp + ". Expires in 15 minutes");
         javaMailSender.send(mailMessage);
     }
+
+    public void sendPasswordUpdateEmail(String toEmail, String name) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(fromEmail);
+        mailMessage.setTo(toEmail);
+        mailMessage.setSubject("Password Updated");
+        mailMessage.setText("Hello " + name + ",\n\nYour Password has updated successfully.\n\nclick here to login.\n\nRegards,\nTeam.");
+        javaMailSender.send(mailMessage);
+    }
+
+    public void sendVerifyOtp(String email, String verifyOtp, String name) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(fromEmail);
+        mailMessage.setTo(email);
+        mailMessage.setSubject("Verify your email");
+        mailMessage.setText(String.format("""
+                Hello %s,
+                Your 6-digit otp to verify your account is: %s
+                Regards,
+                Team
+                """, name, verifyOtp));
+        javaMailSender.send(mailMessage);
+    }
+
 }

@@ -3,7 +3,6 @@ package com.sharvan.authify.controller;
 import com.sharvan.authify.io.ProfileRequest;
 import com.sharvan.authify.io.ProfileResponse;
 import com.sharvan.authify.service.EmailService;
-import com.sharvan.authify.service.ProfileService;
 import com.sharvan.authify.service.ProfileServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,4 +29,11 @@ public class ProfileController {
         ProfileResponse profileResponse = profileService.getProfile(email);
         return ResponseEntity.ok(profileResponse);
     }
+
+    @GetMapping("/notify")
+    public ResponseEntity<Void> notifymail(){
+        profileService.allEmail();
+        return ResponseEntity.noContent().build();
+    }
+
 }
